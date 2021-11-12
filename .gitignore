@@ -1,0 +1,4 @@
+# Ignore private files
+private.sh
+# local indicator
+local
