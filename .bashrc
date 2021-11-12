@@ -87,8 +87,8 @@ export PATH="${PATH}:${HOME}/.local/bin"
 # source functions to use
 . "${SHELL_CONFIG}/conda.sh"
 
-find-conda-path
-init-conda 'bash'
+find_conda_path
+init_conda 'bash'
 
 . "${SHELL_CONFIG}/functions.sh"
 . "${SHELL_CONFIG}/aliases.sh"
@@ -96,4 +96,4 @@ init-conda 'bash'
 # private configuration
 . "${SHELL_CONFIG}/private-config.sh"
 
-source-private-script
+source_private_script

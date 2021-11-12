@@ -80,8 +80,8 @@ bindkey -v # vim like bindings
 # source functions to use
 . "${SHELL_CONFIG}/conda.sh"
 
-find-conda-path
-init-conda 'zsh'
+find_conda_path
+init_conda 'zsh'
 
 
 . "${SHELL_CONFIG}/functions.sh"
@@ -93,4 +93,4 @@ init-conda 'zsh'
 # Any private configurations
 . "${SHELL_CONFIG}/private-config.sh"
 
-source-private-script
+source_private_script
