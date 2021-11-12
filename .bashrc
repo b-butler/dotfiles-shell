@@ -4,7 +4,7 @@
 # Configuration files location
 export SHELL_CONFIG="${HOME}/.shell"
 
-if [[ -e "~/.shell/local" ]]; then
+if [[ -e "${SHELL_CONFIG}/local" ]]; then
 	export IS_LOCAL="local"
 fi
 
@@ -83,16 +83,15 @@ export PATH="${PATH}:${HOME}/.local/bin"
 # set fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-. "${SHELL_CONFIG}/functions.sh"
-. "${SHELL_CONFIG}/aliases.sh"
-
-
 # conda setup
 # source functions to use
 . "${SHELL_CONFIG}/conda.sh"
 
 find-conda-path
 init-conda 'bash'
+
+. "${SHELL_CONFIG}/functions.sh"
+. "${SHELL_CONFIG}/aliases.sh"
 
 # private configuration
 . "${SHELL_CONFIG}/private-config.sh"

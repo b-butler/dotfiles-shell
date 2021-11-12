@@ -2,7 +2,7 @@
 export SHELL_CONFIG="${HOME}/.shell"
 
 if [[ -e "~/.shell/local" ]]; then
-	export IS_LOCAL="local"
+    export IS_LOCAL="local"
 fi
 
 # Path to your oh-my-zsh installation.
@@ -38,11 +38,11 @@ define-keychain-config () {
     local identities=""
     for id_file in id_ed25519 id_github; do
         if [[ -e "${HOME}/.ssh/${id_file}" ]]; then
-            identities="${identities} ${id_file}"
+            identities="${identities+ ${identities}}${id_file}"
         fi
     done
     if [[ -n "${identities+1}" ]]; then
-        zstyle :omz:plugins:keychain identities id_ed25519
+        zstyle :omz:plugins:keychain "$identities"
     fi
 }
 
@@ -76,18 +76,19 @@ bindkey -v # vim like bindings
 # Set up fzf
 [[ -f ~/.fzf.zsh ]] && . ~/.fzf.zsh
 
-. "${SHELL_CONFIG}/functions.sh"
-. "${SHELL_CONFIG}/aliases.sh"
-
-# Set up personal theme
-. "${SHELL_CONFIG}/zsh-theme"
-
 # conda setup
 # source functions to use
 . "${SHELL_CONFIG}/conda.sh"
 
 find-conda-path
 init-conda 'zsh'
+
+
+. "${SHELL_CONFIG}/functions.sh"
+. "${SHELL_CONFIG}/aliases.sh"
+
+# Set up personal theme
+. "${SHELL_CONFIG}/zsh-theme"
 
 # Any private configurations
 . "${SHELL_CONFIG}/private-config.sh"
