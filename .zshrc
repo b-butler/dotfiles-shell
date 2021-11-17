@@ -29,24 +29,33 @@ COMPLETION_WAITING_DOTS="true"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
-plugins=(git keychain)
+plugins=(git)
 
-define-keychain-config () {
-    zstyle :omz:plugins:keychain agents ssh
-    zstyle :omz:plugins:keychain options --quiet
-
-    local identities=""
+define_keychain_or_ssh_agent_config () {
+    _identities=()
     for id_file in id_ed25519 id_github; do
         if [[ -e "${HOME}/.ssh/${id_file}" ]]; then
-            identities="${identities+ ${identities}}${id_file}"
+            _identities+=("$id_file")
         fi
     done
-    if [[ -n "${identities+1}" ]]; then
-        zstyle :omz:plugins:keychain "$identities"
+    if [[ -x "$(command -v keychain)" ]]; then
+        plugins+=(keychain)
+        zstyle :omz:plugins:keychain agents ssh
+        zstyle :omz:plugins:keychain options --quiet
+        if [[ -n "${_identities+1}" ]]; then
+            zstyle :omz:plugins:keychain identities "${_identities[@]}"
+        fi
+    else
+        plugins+=(keychain)
+        zstyle :omz:plugins:ssh-agent agent-forwarding yes
+        if [[ -n "${_identities+1}" ]]; then
+            zstyle :omz:plugins:ssh-agent identities "${_identities[@]}"
+        fi
     fi
+    unset _identities
 }
 
-define-keychain-config
+define_keychain_or_ssh_agent_config
 
 . $ZSH/oh-my-zsh.sh
 
