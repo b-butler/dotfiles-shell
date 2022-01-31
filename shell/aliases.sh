@@ -62,6 +62,9 @@ prefered_alias serror rg grep '\"ERROR\" *.o*'
 
 # git
 alias gstai="git stash push --include-untracked"
+alias grsp="git restore --patch"
+alias grssp="git restore --staged --patch"
+alias grss="git restore --staged"
 
 # Python modules
 alias signac="python3 -m signac"
