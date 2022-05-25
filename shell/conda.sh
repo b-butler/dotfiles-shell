@@ -19,14 +19,14 @@ init_conda () {
     if [[ ! -n "${CONDA_PATH+1}" ]]; then
         return 0
     fi
-        local setup="$("${CONDA_PATH}/bin/conda" "shell.${1}" 'hook' 2> /dev/null)"
-        if [ $? -eq 0 ]; then
-            eval "$setup"
-        else
-            if [ -f "${CONDA_PATH}/etc/profile.d/conda.sh" ]; then
-                . "${CONDA_PATH}/etc/profile.d/conda.sh"
-            else
-                export PATH="${CONDA_PATH}/bin:$PATH"
-            fi
-        fi
+    local setup="$("${CONDA_PATH}/bin/conda" "shell.${1}" 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+       eval "$setup"
+    else
+       if [ -f "${CONDA_PATH}/etc/profile.d/conda.sh" ]; then
+           . "${CONDA_PATH}/etc/profile.d/conda.sh"
+       else
+           export PATH="${CONDA_PATH}/bin:$PATH"
+       fi
+    fi
 }
