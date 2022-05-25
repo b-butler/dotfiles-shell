@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+# Install oh-my-zsh if install not detected
+function install-zsh {
+if [[ ! -e "${HOME}/.oh-my-zsh" ]]; then
+    echo "Installing oh-my-zsh"
+    local url = "https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
+    sh -c "$(curl -fsSL $url)"
+fi
+}
+
 # Arguments:
 #     $1 original file, expects file to be relative to current directory.
 #         Do not include ./ in name. This will work but then the symlink will
@@ -22,3 +31,5 @@ fi
 symlink-with-warning .zshrc "${HOME}/.zshrc"
 symlink-with-warning .bashrc "${HOME}/.bashrc"
 symlink-with-warning shell "${HOME}/.shell"
+
+install-zsh
